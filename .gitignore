@@ -1,6 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 _site
-Gemfile
-Gemfile.lock
+# Gemfile
+# Gemfile.lock
 .jekyll-metadata
 .DS_Store
