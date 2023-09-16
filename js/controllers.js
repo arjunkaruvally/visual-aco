@@ -5,12 +5,12 @@ var visualAcoControllers = angular.module('visualAcoControllers', []);
 
 visualAcoControllers.controller('VisualisationCtrl', ['$scope', 'City', 'AntColony', 'AntSystemAlgorithm', 'Two',
   function ($scope, City, AntColony, AntSystemAlgorithm, Two) {
-    $scope.nrOfCities = 10;
+    $scope.nrOfCities = 50;
     $scope.animationSpeed = 2;
-    $scope.evaporation = 0.7;
-    $scope.Q = 100;
-    $scope.alpha = 1;
-    $scope.beta = 5;
+    $scope.evaporation = 0.1;
+    $scope.Q = 80;
+    $scope.alpha = 5;
+    $scope.beta = 10;
     $scope.iterationCount = 0;
     $scope.antPercentage = 80;
     $scope.nrOfIterations = 100;
@@ -19,6 +19,9 @@ visualAcoControllers.controller('VisualisationCtrl', ['$scope', 'City', 'AntColo
     $scope.isRunning = false;
     $scope.skipDrawingAnts = false;
     $scope.skipDrawingTrails = false;
+
+    var saved_x = [ 774, 470, 195, 690, 209, 198, 601, 675, 82, 335, 399, 196, 579, 457, 340, 616, 713, 657, 284, 597, 477, 291, 480, 657, 634, 409, 51, 502, 231, 748, 48, 399, 336, 764, 588, 491, 810, 249, 299, 756, 514, 257, 552, 633, 705, 680, 210, 769, 407, 432]
+    var saved_y = [ 307 ,435 ,185 ,555 ,30 ,101 ,44 ,338 ,44 ,67 ,123 ,564 ,171 ,506 ,442 ,89 ,147 ,151 ,561 ,32 ,172 ,161 ,559 ,226 ,196 ,281 ,334 ,83 ,518 ,474 ,564 ,260 ,593 ,154 ,453 ,291 ,319 ,443 ,302 ,41 ,205 ,89 ,312 ,96 ,307 ,585 ,44 ,8 ,195 ,493 ]
 
     var cities = [];
     var bestTour = undefined;
@@ -36,14 +39,21 @@ visualAcoControllers.controller('VisualisationCtrl', ['$scope', 'City', 'AntColo
       Two.remove(lines);
       _($scope.nrOfCities).times(function (n) {
         var radius = getScaleAdjustedSettings().radius;
-        var x = _.random(radius, Two.width - radius);
-        var y = _.random(radius, Two.height - radius);
+        // var x = _.random(radius, Two.width - radius);
+        // var y = _.random(radius, Two.height - radius);
+        var x = saved_x[n]
+        var y = saved_y[n]
+
         var circle = Two.makeCircle(x, y, radius);
         circle.noStroke().fill = '#000000';
         cities[n] = City(n, x, y, circle);
       });
+      // x_cities = 
+      console.log(cities.length);
+      // for(let i=0; cities.length; i++){
+      //   console.log(cities[i]);
+      // }
     };
-
     $scope.noCities = function () {
       return cities.length === 0;
     };
